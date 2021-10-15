@@ -9,8 +9,8 @@ def numero(num: float) -> None:
             cursor.execute('SELECT SUM(NUMERO) FROM NUMEROS;')
             acumullated = (float)(cursor.fetchone()[0]) + (float)(num)
             count = cursor.execute("""
-                INSERT INTO NUMEROS (NUMERO, ACUMULADO) VALUES (?,?)""", 
-                    (float)(num), acumullated).rowcount
+                INSERT INTO NUMEROS (NUMERO, ACUMULADO) VALUES (?,?)""",
+                                   (float)(num), acumullated).rowcount
             connection.commit()
             print('Rows inserted: ' + str(count))
     except Exception as e:
@@ -25,15 +25,26 @@ def texto(string: str) -> None:
     try:
         with connection.cursor() as cursor:
             count = cursor.execute("""
-                INSERT INTO TEXTO (TEXTO,INICIAL, FINAL) VALUES (?,?,?)""", 
-                    string, initial, final).rowcount
+                INSERT INTO TEXTO (TEXTO,INICIAL, FINAL) VALUES (?,?,?)""",
+                                   string, initial, final).rowcount
             connection.commit()
             print('Rows inserted: ' + str(count))
     except Exception as e:
         print('error: ', e)
 
+
 def character(char_list: list) -> None:
-    pass
+    connection = db_connection.connection()
+    try:
+        with connection.cursor() as cursor:
+            for char in char_list:
+                count = cursor.execute("""
+                    INSERT INTO CARACTER (CARACTER) VALUES (?)""",
+                                    char).rowcount
+            connection.commit()
+            print('Rows inserted: ' + str(count))
+    except Exception as e:
+        print('error: ', e)
 
 
 def is_num(value):
@@ -61,9 +72,9 @@ def eveluate():
         numero(input_v)
     else:
         specials = contains_special(input_v)
+        texto(input_v)
         if len(specials) > 0:
             character(specials)
-        texto(input_v)
 
 
 eveluate()

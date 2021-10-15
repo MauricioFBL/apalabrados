@@ -9,7 +9,7 @@ def connection():
     try:
         con = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + 
                               direccion_servidor+';DATABASE='+nombre_bd+';UID='+nombre_usuario+';PWD=' + password)
-        print("conexión exitosa")
+        # print("conexión exitosa")
         return con
     except Exception as e:
         print("Ocurrió un error al conectar a SQL Server: ", e)

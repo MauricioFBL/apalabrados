@@ -12,7 +12,7 @@ def texto(string: str) -> None:
     final = arr[len(string)-1]
 
 
-def character(char_list: list) ->None:
+def character(char_list: list) -> None:
     pass
 
 
@@ -29,9 +29,8 @@ def contains_special(input_v):
     arr = list(input_v)
     char = ''
     for x in range(len(input_v)):
-        if arr[x] == '_':
+        if (ord(arr[x]) > 31 and ord(arr[x]) < 48) or (ord(arr[x]) > 57 and ord(arr[x]) < 65) or (ord(arr[x]) > 90 and ord(arr[x]) < 97) or (ord(arr[x]) > 122 and ord(arr[x]) < 256):
             char = arr[x]
-            print(arr[x])
             specials.append(char)
     return specials
 
@@ -45,10 +44,6 @@ def eveluate():
         if len(specials) > 0:
             character(specials)
         texto(input_v)
-        
-        
-
-
 
 
 eveluate()

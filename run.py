@@ -1,13 +1,23 @@
-from os import name
+
 from flask import Flask, request, render_template
+import forms
+
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/apalabrados/', methods=['GET','POST'])
 def my_form():
-    return render_template('apalabrados.html')
+    my_form = forms.MyForm(request.form)
+    if request.method == 'POST':
+        a = my_form.cadena.data
+        print(a)
+        my_form.cadena.data = None
 
-@app.route('/', methods=['POST'])
+
+    return render_template('apalabrados.html', form = my_form)
+
+
+@app.route('/apalabrados', methods=['POST'])
 def my_form_post():
     text = request.form['text']
     processed_text = text.upper()

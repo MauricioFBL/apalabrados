@@ -1,4 +1,3 @@
-from typing import final
 import db_connection
 
 
@@ -12,9 +11,12 @@ def numero(num: float) -> None:
                 INSERT INTO NUMEROS (NUMERO, ACUMULADO) VALUES (?,?)""",
                                    (float)(num), acumullated).rowcount
             connection.commit()
-            print('Rows inserted: ' + str(count))
+            print(
+                f'Rows inserted: {str(count)} number = {num} acumulated {(str)(acumullated)}')
+            return f'row inserted number = {num} acumulated {(str)(acumullated)}'
     except Exception as e:
         print('error: ', e)
+        return e
 
 
 def texto(string: str) -> None:
@@ -28,9 +30,11 @@ def texto(string: str) -> None:
                 INSERT INTO TEXTO (TEXTO,INICIAL, FINAL) VALUES (?,?,?)""",
                                    string, initial, final).rowcount
             connection.commit()
-            print('Rows inserted: ' + str(count))
+            print(f'Rows inserted: {str(count)} {string} {initial} {final}')
+            return f'Rows inserted: {str(count)} {string} {initial} {final}'
     except Exception as e:
         print('error: ', e)
+        return e
 
 
 def character(char_list: list) -> None:
@@ -40,11 +44,14 @@ def character(char_list: list) -> None:
             for char in char_list:
                 count = cursor.execute("""
                     INSERT INTO CARACTER (CARACTER) VALUES (?)""",
-                                    char).rowcount
+                                       char).rowcount
             connection.commit()
             print('Rows inserted: ' + str(count))
+            print(char_list)
+            return char_list
     except Exception as e:
         print('error: ', e)
+        return e
 
 
 def is_num(value):
@@ -66,15 +73,38 @@ def contains_special(input_v):
     return specials
 
 
-def eveluate():
-    input_v = input("Digite algo: ")
-    if is_num(input_v):
-        numero(input_v)
-    else:
-        specials = contains_special(input_v)
-        texto(input_v)
-        if len(specials) > 0:
-            character(specials)
+def get_numbers() -> tuple[list,list]:
+    connection = db_connection.connection()
+    try:
+        with connection.cursor() as cursor:
+            result_n = []
+            result_a = []
+            cursor.execute('SELECT NUMERO, ACUMULADO FROM NUMEROS;')
+            rows = cursor.fetchall()
+            for row in rows:
+                print(row.NUMERO, row.ACUMULADO)
+                result_n.append(row.NUMERO)
+                result_a.append(row.ACUMULADO)
+
+            return result_n, result_a
+    except Exception as e:
+        print('error: ', e)
+        return e, None
 
 
-eveluate()
+def eveluate(cadena=''):
+    # input_v = cadena
+    input_v = input('algo: ')
+    if len(cadena) < 1:
+        if is_num(input_v):
+            numero(input_v)
+        else:
+            specials = contains_special(input_v)
+            texto(input_v)
+            if len(specials) > 0:
+                character(specials)
+        return None
+
+
+# eveluate()
+get_numbers()

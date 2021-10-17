@@ -18,12 +18,17 @@ def my_form():
     if request.method == 'POST' and my_form.validate():
         a = my_form.cadena.data
         my_form.cadena.data = None
-        flash(f'the string {a} was successfully evaluated')
-        flash('numero----acumulado')
+        services.eveluate(a)
+        flash(f'the input {a} was successfully evaluated')
         nums, acums = services.get_numbers()
-        # for x in range(len(nums)):
+        tex, ini,fin = services.get_text()
+        chars = services.get_char()
         flash(f'numero: {nums}')
         flash(f'acumulado: {acums}')
+        flash(f'texto: {tex}')
+        flash(f'inicial: {ini}')
+        flash(f'final: {fin}')
+        flash(f'caracter: {chars}')
     elif not my_form.validate():
         flash('ingrese una cadena de entre 1 y 499 caracteres')
 

@@ -11,9 +11,8 @@ def numero(num: float) -> None:
                 INSERT INTO NUMEROS (NUMERO, ACUMULADO) VALUES (?,?)""",
                                    (float)(num), acumullated).rowcount
             connection.commit()
-            print(
-                f'Rows inserted: {str(count)} number = {num} acumulated {(str)(acumullated)}')
-            return f'row inserted number = {num} acumulated {(str)(acumullated)}'
+            print(f'Rows inserted: {str(count)} number = {num} acumulated {(str)(acumullated)}')
+            return (f'row inserted number = {num} acumulated {(str)(acumullated)}')
     except Exception as e:
         print('error: ', e)
         return e
@@ -73,7 +72,7 @@ def contains_special(input_v):
     return specials
 
 
-def get_numbers() -> tuple[list,list]:
+def get_numbers() -> tuple[list, list]:
     connection = db_connection.connection()
     try:
         with connection.cursor() as cursor:
@@ -82,7 +81,7 @@ def get_numbers() -> tuple[list,list]:
             cursor.execute('SELECT NUMERO, ACUMULADO FROM NUMEROS;')
             rows = cursor.fetchall()
             for row in rows:
-                print(row.NUMERO, row.ACUMULADO)
+                # print(row.NUMERO, row.ACUMULADO)
                 result_n.append(row.NUMERO)
                 result_a.append(row.ACUMULADO)
 
@@ -92,10 +91,48 @@ def get_numbers() -> tuple[list,list]:
         return e, None
 
 
-def eveluate(cadena=''):
-    # input_v = cadena
-    input_v = input('algo: ')
-    if len(cadena) < 1:
+def get_text() -> tuple[list, list, list]:
+    connection = db_connection.connection()
+    try:
+        with connection.cursor() as cursor:
+            result_t = []
+            result_i = []
+            result_f = []
+            cursor.execute('SELECT TEXTO, INICIAL, FINAL FROM TEXTO;')
+            rows = cursor.fetchall()
+            for row in rows:
+                # print(row.TEXTO, row.INICIAL, row.FINAL)
+                result_t.append(row.TEXTO)
+                result_i.append(row.INICIAL)
+                result_f.append(row.FINAL)
+
+            return result_t, result_i, result_f
+    except Exception as e:
+        print('error: ', e)
+        return e, None, None
+
+
+def get_char() -> list:
+    connection = db_connection.connection()
+    try:
+        with connection.cursor() as cursor:
+            result_c = []
+            cursor.execute('SELECT CARACTER FROM CARACTER;')
+            rows = cursor.fetchall()
+            for row in rows:
+                # print(row.CARACTER)
+                result_c.append(row.CARACTER)
+
+            return result_c
+    except Exception as e:
+        print('error: ', e)
+        return e
+
+
+def eveluate(cadena = ''):
+    input_v = cadena
+    # input_v = input('algo: ')
+    if len(cadena) > 0:
         if is_num(input_v):
             numero(input_v)
         else:
@@ -103,8 +140,6 @@ def eveluate(cadena=''):
             texto(input_v)
             if len(specials) > 0:
                 character(specials)
-        return None
-
-
+# get_numbers()
 # eveluate()
-get_numbers()
+# get_char()

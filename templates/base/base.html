@@ -12,11 +12,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css')}}">
 </head>
 <body>
+    <header>
     <div class="head text-white">
         <h1 >Apalabrados</h1>
         <br>
         <p>Bienvenidos a mi primer reto para platzi master</p>
     </div>
+    </header>
+    <main>
     <div>
         <div class="box"> 
             {% block nombreu %}
@@ -28,6 +31,7 @@
         {% endblock %}
 
     </div>
+    </main>
     
         
     </body>

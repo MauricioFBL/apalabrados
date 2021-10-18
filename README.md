@@ -23,3 +23,37 @@ En cuanto a la logica que evalua el input dado por el usuario se encuentra en [a
 - dependiendo de lo que pase en cada evaluacion sellama a una funcion que inserta lo que se especifica en el enunciado del reto
 
 Por ultimo para la parte de la app se creo una aplicacion web en flask la cual se ejcuta mediante el archivo [run.py](run.py) el cual habilita un servidor que muestra la appp y manda el inputa a [apalabrados.py](apalabrados.py), tambien muestra lo que cada tabla tiene 
+
+** Aclaraciones importantes **
+
+Para el correcto funcionamiento de la app se deben instalar las librerias especificadas en [requirements.txt](requirements.txt)
+El motor de base de Datos usado fue MSSQLSERVER EXPRESS 2019
+Se debe configurar un usuario y login con los permisos de insercion, consulta y conexion a la db
+
+## Uso
+Para el uso de la app es necesario 
+- Instalar las librerias especificadas en [requirements.txt](requirements.txt)
+- Instalar MSSQLSERVER EXPRESS 2019
+- Configurar un usuario y login con permisos de insercion, consulta y conexion a la db
+- ejecutar el archivo run.py
+    - una vez ejecutado se iniciara un servidor en 127.0.0.1:5000
+    - la app se encentra en la ruta 127.0.0.1:5000/apalabrados
+    - para hacer uso de la app se debe ingresar algo en el input que aparecera, y presionar el boton enviar para que se evalue el input
+
+## Descargar el repositorio
+Para descargar el repositorio se puede hacer lo siguiente:
+- usando git mediante HTTPS [https://github.com/MauricioFBL/apalabrados.git](https://github.com/MauricioFBL/apalabrados.git):
+    ```git
+    git clone https://github.com/MauricioFBL/apalabrados.git
+    ```
+- usando git mediante SSH [git@github.com:MauricioFBL/apalabrados.git](git@github.com:MauricioFBL/apalabrados.git):
+    ```git
+        git clone git@github.com:MauricioFBL/apalabrados.git
+    ```
+- Otra forma de  descargar el repositorio se puede ingresar a la siguiente url: [https://github.com/MauricioFBL/apalabrados](https://github.com/MauricioFBL/apalabrados)
+- Una vez aqui se presionara el boton "Code" que da algunas opciones de descarga.
+
+    - Se puede descargar mediante el apartado Download ZIP
+
+## Diagrama de flujo del reto
+[![Apalabrados-FLOWCHART.jpg](https://i.postimg.cc/2S4CMfMw/Apalabrados-FLOWCHART.jpg)](https://postimg.cc/DSwV4R2J)
